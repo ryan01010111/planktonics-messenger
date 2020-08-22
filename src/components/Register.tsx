@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 
 // mui
 import { makeStyles } from "@material-ui/core/styles";
@@ -55,8 +55,22 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Register = () => {
+  const history = useHistory();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const createUser = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (email && password) {
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
+      // generate "token"
+      localStorage.setItem("token", Math.random().toString().slice(2));
+      setEmail("");
+      setPassword("");
+      history.push("/");
+    }
+  };
 
   const classes = useStyles();
 
@@ -72,7 +86,7 @@ const Register = () => {
           <Typography component="h1" variant="h5">
             Регистрация
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={createUser}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -84,7 +98,9 @@ const Register = () => {
               autoComplete="email"
               autoFocus
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.target.value)
+              }
             />
             <TextField
               variant="outlined"
@@ -97,7 +113,9 @@ const Register = () => {
               id="password"
               autoComplete="current-password"
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPassword(e.target.value)
+              }
             />
             <Button
               type="submit"
@@ -110,7 +128,7 @@ const Register = () => {
             </Button>
             <Grid container className={classes.registerGrid}>
               <Grid item xs={12}>
-                Ест аккаунт?
+                Есть аккаунт?
               </Grid>
               <Grid item xs={12}>
                 <Link to="/login" variant="body2" component={RouterLink}>

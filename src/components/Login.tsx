@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 
 // mui
 import { makeStyles } from "@material-ui/core/styles";
@@ -55,8 +55,24 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Login = () => {
+  const history = useHistory();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [authError, setAuthError] = useState<boolean>(false);
+
+  const authenticate = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const storedEmail = localStorage.getItem("email");
+    const storedPassword = localStorage.getItem("password");
+    if (email === storedEmail && password === storedPassword) {
+      setEmail("");
+      setPassword("");
+      setAuthError(false);
+      history.push("/");
+    } else {
+      setAuthError(true);
+    }
+  };
 
   const classes = useStyles();
 
@@ -69,10 +85,15 @@ const Login = () => {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" gutterBottom>
             Войдите:
           </Typography>
-          <form className={classes.form} noValidate>
+          {authError && (
+            <Typography component="p" variant="body2" color="error">
+              Неверные логин или пароль
+            </Typography>
+          )}
+          <form className={classes.form} noValidate onSubmit={authenticate}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -84,7 +105,9 @@ const Login = () => {
               autoComplete="email"
               autoFocus
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.target.value)
+              }
             />
             <TextField
               variant="outlined"
@@ -97,7 +120,9 @@ const Login = () => {
               id="password"
               autoComplete="current-password"
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPassword(e.target.value)
+              }
             />
             <Button
               type="submit"
