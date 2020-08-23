@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 // mui
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
@@ -6,6 +6,9 @@ import { AppBar, Toolbar, IconButton, Typography } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+
+// components
+import { MessageContext } from "./contexts/MessageContext";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,6 +28,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Header = () => {
+  const context = useContext(MessageContext);
+
   const classes = useStyles();
 
   return (
@@ -40,7 +45,7 @@ const Header = () => {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Channel Name
+            {context.currentChannel}
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

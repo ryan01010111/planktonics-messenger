@@ -4,12 +4,3 @@
   flex-direction: column;
   justify-content: space-between;
 }
-
-#chat-window {
-  height: 100%;
-}
-
-#chat-box {
-  height: 80px;
-  background-color: #555;
-}

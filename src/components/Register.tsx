@@ -57,16 +57,19 @@ const useStyles = makeStyles(theme => ({
 const Register = () => {
   const history = useHistory();
   const [email, setEmail] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const createUser = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (email && password) {
+    if (email && username && password) {
       localStorage.setItem("email", email);
+      localStorage.setItem("username", username);
       localStorage.setItem("password", password);
       // generate "token"
       localStorage.setItem("token", Math.random().toString().slice(2));
       setEmail("");
+      setUsername("");
       setPassword("");
       history.push("/");
     }
@@ -100,6 +103,19 @@ const Register = () => {
               value={email}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setEmail(e.target.value)
+              }
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Имя пользователя"
+              name="username"
+              value={username}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUsername(e.target.value)
               }
             />
             <TextField
