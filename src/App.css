@@ -2,5 +2,42 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+#main-window {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
+#window-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
+}
+
+form aside.emoji-picker-react {
+  position: absolute;
+  bottom: 80px;
+  right: 8px;
+  background-color: #777;
+  border: none;
+  box-shadow: none;
+}
+
+form .emoji-search {
+  background-color: #555;
+}
+
+.emoji-group[data-display-name="Recently Used"] {
+  border-bottom: 2px solid #555;
+}
+
+form .emoji-picker-react .emoji-group:before {
+  display: none;
+}
+
+form aside.emoji-picker-react .content-wrapper:before {
+  display: none;
 }

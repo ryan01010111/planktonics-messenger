@@ -6,15 +6,23 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import SendIcon from "@material-ui/icons/Send";
+import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 
 // components
 import { MessageContext } from "./contexts/MessageContext";
+import Picker from "emoji-picker-react";
 
 const useStyles = makeStyles({
   chatBox: {
     height: 80,
     padding: 12,
     backgroundColor: "#555",
+  },
+  emojiBtn: {
+    position: "absolute",
+    bottom: "50%",
+    right: 54,
+    transform: "translateY(50%)",
   },
   form: {
     position: "relative",
@@ -46,17 +54,25 @@ const ChatBox = () => {
   const context = useContext(MessageContext);
   const username = localStorage.getItem("username") || "";
   const [messageText, setMessageText] = useState<string>("");
+  const [openEmojiPicker, setOpenEmojiPicker] = useState<boolean>(false);
+  const [chosenEmoji, setChosenEmoji] = useState<string | null>(null);
 
-  const addMessage = (e: React.FormEvent<HTMLFormElement>) => {
+  const onEmojiClick = (event, emojiObject) => {
+    setChosenEmoji(emojiObject);
+  };
+
+  const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newMessage: Message = {
-      id: uuidv4(),
-      user: username,
-      message: messageText,
-      time: new Date(),
-    };
-    context.addMessage(context.currentChannel, newMessage);
-    setMessageText("");
+    if (messageText) {
+      const newMessage: Message = {
+        id: uuidv4(),
+        user: username,
+        message: messageText,
+        time: new Date(),
+      };
+      context.addMessage(newMessage);
+      setMessageText("");
+    }
   };
 
   const classes = useStyles();
@@ -65,7 +81,7 @@ const ChatBox = () => {
     <div className={classes.chatBox}>
       <form
         className={classes.form}
-        onSubmit={(e: React.FormEvent<HTMLFormElement>) => addMessage(e)}
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => sendMessage(e)}
       >
         <TextField
           fullWidth
@@ -78,6 +94,16 @@ const ChatBox = () => {
         <IconButton className={classes.sendBtn} type="submit">
           <SendIcon />
         </IconButton>
+        <IconButton
+          className={classes.emojiBtn}
+          type="button"
+          onClick={() => setOpenEmojiPicker(!openEmojiPicker)}
+        >
+          <InsertEmoticonIcon />
+        </IconButton>
+        {openEmojiPicker && (
+          <Picker disableSearchBar onEmojiClick={onEmojiClick} />
+        )}
       </form>
     </div>
   );

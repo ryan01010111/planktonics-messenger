@@ -27,9 +27,19 @@ export default (state: State, action: Action) => {
     case "DELETE_MESSAGE":
       return {
         ...state,
-        messages: state[channel].filter(
+        [channel]: state[channel].filter(
           (msg: Message) => msg.id !== action.payload
         ),
+      };
+    case "UPDATE_MESSAGE":
+      return {
+        ...state,
+        [channel]: state[channel].filter((msg: Message) => {
+          if (msg.id === action.payload.id) {
+            msg.message = action.payload.message;
+          }
+          return msg;
+        }),
       };
   }
 };

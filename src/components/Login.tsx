@@ -68,6 +68,7 @@ const Login = () => {
       setEmail("");
       setPassword("");
       setAuthError(false);
+      localStorage.setItem("token", Math.random().toString().slice(2));
       history.push("/");
     } else {
       setAuthError(true);
