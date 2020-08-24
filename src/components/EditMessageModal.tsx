@@ -57,7 +57,7 @@ const EditMessageModal = ({
   return (
     <Modal open={open} onClose={setClose}>
       <div className={classes.paper}>
-        <h2>Edit message</h2>
+        <h2>Редактировать</h2>
         <TextareaAutosize
           rowsMin={5}
           value={editText}
@@ -71,7 +71,7 @@ const EditMessageModal = ({
           color="secondary"
           onClick={handleSubmit}
         >
-          Edit
+          редактировать
         </Button>
       </div>
     </Modal>

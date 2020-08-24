@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 // mui
@@ -57,8 +57,15 @@ const ChatBox = () => {
   const [openEmojiPicker, setOpenEmojiPicker] = useState<boolean>(false);
   const [chosenEmoji, setChosenEmoji] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (chosenEmoji) {
+      setMessageText(messageText + chosenEmoji);
+      setChosenEmoji(null);
+    }
+  }, [chosenEmoji, messageText]);
+
   const onEmojiClick = (event, emojiObject) => {
-    setChosenEmoji(emojiObject);
+    setChosenEmoji(emojiObject.emoji);
   };
 
   const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
@@ -72,6 +79,7 @@ const ChatBox = () => {
       };
       context.addMessage(newMessage);
       setMessageText("");
+      setOpenEmojiPicker(false);
     }
   };
 
@@ -85,7 +93,7 @@ const ChatBox = () => {
       >
         <TextField
           fullWidth
-          placeholder="type..."
+          placeholder="печатать..."
           value={messageText}
           onChange={(e: React.FormEvent<HTMLFormElement>) =>
             setMessageText(e.target.value)

@@ -20,7 +20,8 @@ const useStyles = makeStyles(theme => ({
     height: "100vh",
   },
   image: {
-    backgroundImage: "url(https://source.unsplash.com/random)",
+    backgroundImage:
+      "url(https://www.amnh.org/var/ezflow_site/storage/images/media/amnh/images/explore/ology-images/marine-biology/find-my-baby-plankton-picture/minden_80006377_2x/3070649-1-eng-US/minden_80006377_2x.jpg)",
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"
@@ -136,7 +137,7 @@ const Login = () => {
             </Button>
             <Grid container className={classes.registerGrid}>
               <Grid item xs={12}>
-                Нет аккаунт?
+                Нет аккаунта?
               </Grid>
               <Grid item xs={12}>
                 <Link to="/register" variant="body2" component={RouterLink}>

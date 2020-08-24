@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 // components
-import { MessageProvider } from "./contexts/MessageContext";
 import Header from "./Header";
 import MainMenu from "./MainMenu";
 import ChatWindow from "./ChatWindow";
@@ -23,20 +22,18 @@ const Chat = () => {
 
   return (
     <div id="chat-container">
-      <MessageProvider>
-        <Header toggleMenu={toggleMenu} />
-        <div id="main-window">
-          <MainMenu
-            mobileOpen={mobileMenuOpen}
-            toggleMenu={toggleMenu}
-            logout={logout}
-          />
-          <div id="window-right">
-            <ChatWindow />
-            <ChatBox />
-          </div>
+      <Header toggleMenu={toggleMenu} />
+      <div id="main-window">
+        <MainMenu
+          mobileOpen={mobileMenuOpen}
+          toggleMenu={toggleMenu}
+          logout={logout}
+        />
+        <div id="window-right">
+          <ChatWindow />
+          <ChatBox />
         </div>
-      </MessageProvider>
+      </div>
     </div>
   );
 };

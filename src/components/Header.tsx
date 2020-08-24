@@ -74,7 +74,7 @@ const Header = ({ toggleMenu }: Props) => {
             </Typography>
           </Hidden>
           <Typography className={classes.title} variant="h6" noWrap>
-            {"#" + context.currentChannel}
+            {"#" + (context.currentChannel === "work" ? "Работа" : "Общение")}
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

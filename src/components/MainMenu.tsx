@@ -67,7 +67,7 @@ const ResponsiveDrawer = ({
           <ListItemIcon>
             <ExitToAppIcon />
           </ListItemIcon>
-          <ListItemText primary="logout" />
+          <ListItemText primary="Выход" />
         </ListItem>
       </List>
       <Divider />
@@ -77,14 +77,14 @@ const ResponsiveDrawer = ({
           <ListItemIcon>
             <BusinessSharpIcon />
           </ListItemIcon>
-          <ListItemText primary="work" />
+          <ListItemText primary="Работа" />
         </ListItem>
         {/* item 3 */}
         <ListItem button onClick={() => context.setCurrentChannel("casual")}>
           <ListItemIcon>
             <FreeBreakfastIcon />
           </ListItemIcon>
-          <ListItemText primary="casual" />
+          <ListItemText primary="Общение" />
         </ListItem>
       </List>
     </div>
