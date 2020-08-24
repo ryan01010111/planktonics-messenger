@@ -1,4 +1,8 @@
 # Planktonics Messenger
 
-`npm i`
-`npm run start`
+```
+npm i
+npm run start
+```
+
+(http://localhost:3000/)
