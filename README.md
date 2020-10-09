@@ -1,4 +1,4 @@
-# Planktonics Messenger
+# Planktonics Messenger (frontend coding task)
 
 Демо: https://dev-ryan.com/planktonics
 
